@@ -281,6 +281,154 @@ def minute_hand(htime):
           L 10.35 8 Z"
     class = "yellow alpha" />"""
 
+def clock_digits(htime):
+    tds = ["sevenseg_{d}".format(d=htime[i]) for e,i in enumerate([0,1,3,4])]
+    return tds
+
+
+def seven_seg_clock(vtime):
+    d1,d2,d3,d4=clock_digits(vtime)
+    sevenseg = """
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewbox="0 0 200 80" >
+    <style>
+        text {{font-size:0.04em;}}
+        .white {{ fill: white; stroke: black; stroke-width:0.1;}}
+        .darkgrey {{ fill: #222233; stroke: black; stroke-width:0.1;}}
+        .yellow {{ fill: yellow; stroke: black; stroke-width:0.1;}}
+        .orange {{ fill: #ffc78f; stroke: black; stroke-width:0.1;}}
+        .pink {{ fill: #ffccff; stroke: black; stroke-width:0.1;}}
+        .pink2 {{ fill: #ffe0ff; stroke: black; stroke-width:0.1;}}
+        .pink3 {{ fill: #ff8888; stroke: black; stroke-width:0.1;}}
+        .red {{ fill: #ff4444; stroke: black; stroke-width:0.1;}}
+        .black {{ fill: black; stroke: black; stroke-width:0.1;}}
+        .gray {{ fill: gray; stroke: silver; stroke-width:0.1;}}
+        .green {{ fill: #c2ff85; stroke: black; stroke-width:0.1;}}
+        .green2 {{ fill: #e4ffc8; stroke: black; stroke-width:0.1;}}
+        .green3 {{ fill: #88ff33; stroke: black; stroke-width:0.1;}}
+        .lime {{ fill: #ccff41; stroke: black; stroke-width:0.1;}}
+        .blue1 {{ fill: #33ccff; stroke: black; stroke-width:0.1;}}
+        .blue2 {{ fill: #7adeff; stroke: black; stroke-width:0.1;}}
+        .heavy {{ fill: black; stroke: black; stroke-width:0.2;}}
+        .alpha {{ fill-opacity:0.95;}}
+    </style>
+
+    <defs>
+    <g id="sevenseg_1" class="lime" ><path d="M 1 1 L 2 2 L 11 2 L 12 1 L 11 0 L 2  0 Z" class="darkgrey"> </path>
+                <path d="M 1 1 L 0 2 L 0 11 L 1 12 L 2 11 L 2  2 Z" class="darkgrey"> </path>
+                <path d="M 12 1 L 11 2 L 11 11 L 12 12 L 13 11 L 13  2 Z" > </path>
+                <path d="M 1 12 L 2 13 L 11 13 L 12 12 L 11 11 L 2  11 Z" class="darkgrey" > </path>
+                <path d="M 1 12 L 0 13 L 0 22 L 1 23 L 2 22 L 2 13 Z" class="darkgrey" > </path>
+                <path d="M 12 12 L 11 13 L 11 22 L 12 23 L 13 22 L 13 13 Z" > </path>
+                <path d="M 1 23 L 2 24 L 11 24 L 12 23 L 11 22 L 2 22 Z" class="darkgrey" > </path>
+    </g>
+
+    <g id="sevenseg_2" class="lime"><path d="M 1 1 L 2 2 L 11 2 L 12 1 L 11 0 L 2  0 Z" > </path>
+                <path d="M 1 1 L 0 2 L 0 11 L 1 12 L 2 11 L 2  2 Z" class="darkgrey"> </path>
+                <path d="M 12 1 L 11 2 L 11 11 L 12 12 L 13 11 L 13  2 Z" > </path>
+                <path d="M 1 12 L 2 13 L 11 13 L 12 12 L 11 11 L 2  11 Z"  > </path>
+                <path d="M 1 12 L 0 13 L 0 22 L 1 23 L 2 22 L 2 13 Z" > </path>
+                <path d="M 12 12 L 11 13 L 11 22 L 12 23 L 13 22 L 13 13 Z" class="darkgrey"> </path>
+                <path d="M 1 23 L 2 24 L 11 24 L 12 23 L 11 22 L 2 22 Z" > </path>
+    </g>
+
+    <g id="sevenseg_3" class="lime" ><path d="M 1 1 L 2 2 L 11 2 L 12 1 L 11 0 L 2  0 Z" > </path>
+                <path d="M 1 1 L 0 2 L 0 11 L 1 12 L 2 11 L 2  2 Z" class="darkgrey"> </path>
+                <path d="M 12 1 L 11 2 L 11 11 L 12 12 L 13 11 L 13  2 Z" > </path>
+                <path d="M 1 12 L 2 13 L 11 13 L 12 12 L 11 11 L 2  11 Z"  > </path>
+                <path d="M 1 12 L 0 13 L 0 22 L 1 23 L 2 22 L 2 13 Z" class="darkgrey" > </path>
+                <path d="M 12 12 L 11 13 L 11 22 L 12 23 L 13 22 L 13 13 Z" > </path>
+                <path d="M 1 23 L 2 24 L 11 24 L 12 23 L 11 22 L 2 22 Z"  > </path>
+    </g>
+
+    <g id="sevenseg_4" class="lime"><path d="M 1 1 L 2 2 L 11 2 L 12 1 L 11 0 L 2  0 Z" class="darkgrey"> </path>
+                <path d="M 1 1 L 0 2 L 0 11 L 1 12 L 2 11 L 2  2 Z" class="lime"> </path>
+                <path d="M 12 1 L 11 2 L 11 11 L 12 12 L 13 11 L 13  2 Z" class="lime"> </path>
+                <path d="M 1 12 L 2 13 L 11 13 L 12 12 L 11 11 L 2  11 Z"  class="lime"> </path>
+                <path d="M 1 12 L 0 13 L 0 22 L 1 23 L 2 22 L 2 13 Z" class="darkgrey" > </path>
+                <path d="M 12 12 L 11 13 L 11 22 L 12 23 L 13 22 L 13 13 Z" class="lime"> </path>
+                <path d="M 1 23 L 2 24 L 11 24 L 12 23 L 11 22 L 2 22 Z"  class="darkgrey"> </path>
+    </g>
+
+    <g id="sevenseg_5" class="lime" ><path d="M 1 1 L 2 2 L 11 2 L 12 1 L 11 0 L 2  0 Z" > </path>
+                <path d="M 1 1 L 0 2 L 0 11 L 1 12 L 2 11 L 2  2 Z" > </path>
+                <path d="M 12 1 L 11 2 L 11 11 L 12 12 L 13 11 L 13  2 Z" class="darkgrey"> </path>
+                <path d="M 1 12 L 2 13 L 11 13 L 12 12 L 11 11 L 2  11 Z"  > </path>
+                <path d="M 1 12 L 0 13 L 0 22 L 1 23 L 2 22 L 2 13 Z" class="darkgrey" > </path>
+                <path d="M 12 12 L 11 13 L 11 22 L 12 23 L 13 22 L 13 13 Z"> </path>
+                <path d="M 1 23 L 2 24 L 11 24 L 12 23 L 11 22 L 2 22 Z"  > </path>
+    </g>
+
+    <g id="sevenseg_6" class="lime"><path d="M 1 1 L 2 2 L 11 2 L 12 1 L 11 0 L 2  0 Z" > </path>
+                <path d="M 1 1 L 0 2 L 0 11 L 1 12 L 2 11 L 2  2 Z" > </path>
+                <path d="M 12 1 L 11 2 L 11 11 L 12 12 L 13 11 L 13  2 Z" class="darkgrey"> </path>
+                <path d="M 1 12 L 2 13 L 11 13 L 12 12 L 11 11 L 2  11 Z"  > </path>
+                <path d="M 1 12 L 0 13 L 0 22 L 1 23 L 2 22 L 2 13 Z"  > </path>
+                <path d="M 12 12 L 11 13 L 11 22 L 12 23 L 13 22 L 13 13 Z" > </path>
+                <path d="M 1 23 L 2 24 L 11 24 L 12 23 L 11 22 L 2 22 Z"  > </path>
+    </g>
+
+    <g id="sevenseg_7" class="lime"><path d="M 1 1 L 2 2 L 11 2 L 12 1 L 11 0 L 2  0 Z" > </path>
+                <path d="M 1 1 L 0 2 L 0 11 L 1 12 L 2 11 L 2  2 Z" class="darkgrey"> </path>
+                <path d="M 12 1 L 11 2 L 11 11 L 12 12 L 13 11 L 13  2 Z" > </path>
+                <path d="M 1 12 L 2 13 L 11 13 L 12 12 L 11 11 L 2  11 Z"  class="darkgrey"> </path>
+                <path d="M 1 12 L 0 13 L 0 22 L 1 23 L 2 22 L 2 13 Z" class="darkgrey" > </path>
+                <path d="M 12 12 L 11 13 L 11 22 L 12 23 L 13 22 L 13 13 Z" > </path>
+                <path d="M 1 23 L 2 24 L 11 24 L 12 23 L 11 22 L 2 22 Z"  class="darkgrey"> </path>
+    </g>
+
+
+    <g id="sevenseg_8" class="lime"><path d="M 1 1 L 2 2 L 11 2 L 12 1 L 11 0 L 2  0 Z" > </path>
+                <path d="M 1 1 L 0 2 L 0 11 L 1 12 L 2 11 L 2  2 Z" > </path>
+                <path d="M 12 1 L 11 2 L 11 11 L 12 12 L 13 11 L 13  2 Z" > </path>
+                <path d="M 1 12 L 2 13 L 11 13 L 12 12 L 11 11 L 2  11 Z" > </path>
+                <path d="M 1 12 L 0 13 L 0 22 L 1 23 L 2 22 L 2 13 Z"  > </path>
+                <path d="M 12 12 L 11 13 L 11 22 L 12 23 L 13 22 L 13 13 Z" > </path>
+                <path d="M 1 23 L 2 24 L 11 24 L 12 23 L 11 22 L 2 22 Z"  > </path>
+    </g>
+
+
+    <g id="sevenseg_9" class="lime"><path d="M 1 1 L 2 2 L 11 2 L 12 1 L 11 0 L 2  0 Z" > </path>
+                <path d="M 1 1 L 0 2 L 0 11 L 1 12 L 2 11 L 2  2 Z" > </path>
+                <path d="M 12 1 L 11 2 L 11 11 L 12 12 L 13 11 L 13  2 Z" > </path>
+                <path d="M 1 12 L 2 13 L 11 13 L 12 12 L 11 11 L 2  11 Z" > </path>
+                <path d="M 1 12 L 0 13 L 0 22 L 1 23 L 2 22 L 2 13 Z" class="darkgrey" > </path>
+                <path d="M 12 12 L 11 13 L 11 22 L 12 23 L 13 22 L 13 13 Z" > </path>
+                <path d="M 1 23 L 2 24 L 11 24 L 12 23 L 11 22 L 2 22 Z"  class="darkgrey"> </path>
+    </g>
+
+    <g id="sevenseg_0" class="lime"><path d="M 1 1 L 2 2 L 11 2 L 12 1 L 11 0 L 2  0 Z" > </path>
+                <path d="M 1 1 L 0 2 L 0 11 L 1 12 L 2 11 L 2  2 Z" > </path>
+                <path d="M 12 1 L 11 2 L 11 11 L 12 12 L 13 11 L 13  2 Z" > </path>
+                <path d="M 1 12 L 2 13 L 11 13 L 12 12 L 11 11 L 2  11 Z"  class="darkgrey"> </path>
+                <path d="M 1 12 L 0 13 L 0 22 L 1 23 L 2 22 L 2 13 Z"  > </path>
+                <path d="M 12 12 L 11 13 L 11 22 L 12 23 L 13 22 L 13 13 Z" > </path>
+                <path d="M 1 23 L 2 24 L 11 24 L 12 23 L 11 22 L 2 22 Z"  > </path>
+    </g>
+
+    <g id="sevenseg_point"> <circle cx="0" cy="23" r="1"  class="lime"> </circle></g>
+
+    <g id="sevenseg_colon"> <circle cx="0" cy="8" r="1"  class="lime"> </circle>
+                            <circle cx="0" cy="16" r="1"  class="lime"> </circle>
+
+    </g>
+
+
+
+    </defs>
+    <g transform="scale(2.0)">
+    <rect x="2" y = "2" width="90" height="36" rx="4" class="darkgrey"/>
+    <rect x="4" y = "4" width="86" height="32" rx="2"/>
+        <g transform="skewX(-10)">
+            <use xlink:href="#{d1}"     x="20" y="7.5" />
+            <use xlink:href="#{d2}"     x="35" y="7.5" />
+            <use xlink:href="#sevenseg_colon" x="50" y="7.5" />
+            <use xlink:href="#{d3}"     x="52" y="7.5" />
+            <use xlink:href="#{d4}"     x="67" y="7.5" />
+        </g>
+    </g>
+    </svg>
+    """.format(d1=d1, d2=d2, d3=d3, d4=d4)
+    return sevenseg
 
 def clock_face(vtime):
 
@@ -289,6 +437,8 @@ def clock_face(vtime):
     <style>
         text {{font-size:0.04em;}}
         .white {{ fill: white; stroke: black; stroke-width:0.1;}}
+        .gray {{ fill: gray; stroke: silver; stroke-width:0.1;}}
+        .darkgrey {{ fill: #222233; stroke: black; stroke-width:0.1;}}
         .yellow {{ fill: yellow; stroke: black; stroke-width:0.1;}}
         .orange {{ fill: #ffc78f; stroke: black; stroke-width:0.1;}}
         .pink {{ fill: #ffccff; stroke: black; stroke-width:0.1;}}
@@ -296,10 +446,10 @@ def clock_face(vtime):
         .pink3 {{ fill: #ff8888; stroke: black; stroke-width:0.1;}}
         .red {{ fill: #ffc78f; stroke: black; stroke-width:0.1;}}
         .black {{ fill: black; stroke: black; stroke-width:0.1;}}
-        .gray {{ fill: gray; stroke: silver; stroke-width:0.1;}}
         .green {{ fill: #c2ff85; stroke: black; stroke-width:0.1;}}
         .green2 {{ fill: #e4ffc8; stroke: black; stroke-width:0.1;}}
         .green3 {{ fill: #88ff33; stroke: black; stroke-width:0.1;}}
+        .lime {{ fill: #ccff41; stroke: black; stroke-width:0.1;}}
         .blue1 {{ fill: #33ccff; stroke: black; stroke-width:0.1;}}
         .blue2 {{ fill: #7adeff; stroke: black; stroke-width:0.1;}}
         .heavy {{ fill: black; stroke: black; stroke-width:0.2;}}
