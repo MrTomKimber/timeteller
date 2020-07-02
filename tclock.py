@@ -1,6 +1,8 @@
 from math import cos, sin, sqrt, pi
 import time
 
+import numberstrings as ns
+
 def svg_radial_line_data(cx, cy, r, l, alpha):
     pointa = (cx + cos(alpha)*r, cy+sin(alpha)*r)
     pointb = (cx + cos(alpha)*(r+l), cy+sin(alpha)*(r+l))
@@ -284,6 +286,77 @@ def minute_hand(htime):
 def clock_digits(htime):
     tds = ["sevenseg_{d}".format(d=htime[i]) for e,i in enumerate([0,1,3,4])]
     return tds
+
+
+
+def twelve_hour(hour):
+    if hour > 12:
+        return hour - 12
+    elif hour == 0 :
+        return 12
+    else:
+        return hour
+
+def twentyfour_hour(hour):
+    return hour
+
+
+
+
+def time_text(tstring, h24=False, style="simple"):
+    stime = tstring
+    try:
+        stime = time.strptime(stime, "%H:%M:%S")
+    except ValueError: # bad time, so use now
+        stime = datetime.datetime.now().strftime("%H:%M:%S")
+        print (render_request())
+
+    hour = int(stime.tm_hour)
+    if not h24:
+        adj_h = twelve_hour
+    else:
+        adj_h = twentyfour_hour
+
+    if style=="simple":
+
+        minute = int(stime.tm_min)
+        if minute!=0:
+            if minute < 10:
+                min_w = "oh-" + ns.number_to_text(minute)
+            else:
+                min_w = ns.number_to_text(minute)
+            time_string = (ns.number_to_text(adj_h(hour)) + " " + min_w)
+
+        else:
+            cardinal = ns.clock_cardinals.get(minute)
+            time_string= (ns.number_to_text(adj_h(hour)) + " " + cardinal)
+
+
+    elif style=="proper":
+        minute = int(stime.tm_min)
+        if minute in [15,30,45]: # pick cardinal phrase
+            cardinal = ns.clock_cardinals.get(int(stime.tm_min))
+            if minute < 31:
+                time_string= (cardinal + " " + ns.number_to_text(adj_h(hour)))
+            else:
+                time_string= (cardinal + " " + ns.number_to_text(adj_h(hour+1)))
+        elif minute in [0]: # pick cardinal phrase
+            cardinal = ns.clock_cardinals.get(minute)
+            time_string= (ns.number_to_text(adj_h(hour)) + " " + cardinal)
+        else:
+            if minute == 1:
+                time_string = ns.number_to_text(minute) + " minute past " + ns.number_to_text(adj_h(hour))
+            elif 1 < minute < 30:
+                time_string = ns.number_to_text(minute) + " minutes past " + ns.number_to_text(adj_h(hour))
+            elif 30 < minute < 60:
+                time_string = ns.number_to_text(60-minute) + " minutes to " + ns.number_to_text(adj_h(hour+1))
+            else:
+                time_string = ns.number_to_text(60-minute) + " minute to " + ns.number_to_text(adj_h(hour+1))
+    return time_string
+
+def time_paragraph(htime):
+
+    return "<blockquote><i> {tt}</i> </blockquote>".format(tt=time_text(htime,style="proper"))
 
 
 def seven_seg_clock(vtime):
