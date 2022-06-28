@@ -6,15 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
      <title>Time Teller</title>
-	 
-<style> 
 
-svg { max-height: 600px;} 
+<style>
+
+svg { max-height: 600px;}
 div.mid { width: 60%;
           margin: auto; }
 
-</style> 
-  
+</style>
+
 <script>
 var options = {
   enableHighAccuracy: true,
@@ -66,7 +66,7 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 
 
         .text_minute {
-                       stroke:#000000;
+                       stroke:#00ff00;
                        fill:#000000;
                        stroke-width:0.02;
                        text-anchor:middle;
@@ -75,13 +75,14 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 
         .text_hour {font-size:0.12em;
                        stroke:#000000;
-                       fill:#ffffff;
+                       fill:#ffff00;
                        stroke-width:0.05;
                        text-anchor:middle;
                        letter-spacing:1.0;}
         .text_path_minute { }
 
         .text_path_hour { }
+
     </style>
 
 <g transform='rotate(-90,10,10)'>
@@ -119,8 +120,8 @@ navigator.geolocation.getCurrentPosition(success, error, options);
                        Z" > <title>3</title> </path>
                 <defs><path id="tpid_hour3" d="M11.596050778132213 15.956542595449253
                        A 6.166666666666667 6.166666666666667 0 0 1 8.40394922186779 15.956542595449257" /></defs>
-                <text class="text_hour"  textLength="20%" lengthAdjust="spacingAndGlyphs">
-                <textPath  href="#tpid_hour3" startOffset="50%">3</textPath></text>
+                <text class="text_hour"  textLength="5%" lengthAdjust="spacingAndGlyphs">
+                <textPath  href="#tpid_hour3" startOffset="50%">Q</textPath></text>
               </g>
 <g id="hour4" class="blue2">
                 <path  d="M8.705904774487397 14.82962913144534
@@ -1255,6 +1256,6 @@ navigator.geolocation.getCurrentPosition(success, error, options);
         </g>
     </g>
     </svg>
-    </div> 
+    </div>
   </body>
 </html>

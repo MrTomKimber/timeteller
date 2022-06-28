@@ -146,9 +146,12 @@ def svg_radial_line(rad_lin_d, s_class=None):
 
 
 
-def svg_arc_segment(prefix, arc_seg_d, id=None,title=None, s_class=None, t_class=None, tp_class=None):
+def svg_arc_segment(prefix, arc_seg_d, id=None,title=None, s_class=None, t_class=None, tp_class=None, tl_pc=None):
     # id=title, not a great idea - probably worth changing sooner than later.
     id=str(prefix) + str(id)
+    if tl_pc is None:
+        tl_pc = 3
+    tl_pc_t = "{tl}%".format(tl=str(tl_pc))
     if title is not None:
         text_path_id = "text_path__" + id
     else:
@@ -156,7 +159,7 @@ def svg_arc_segment(prefix, arc_seg_d, id=None,title=None, s_class=None, t_class
     base = """<g id="{id}" {c}>
                 <path  {d}> {title} </path>
                 <defs><path id="tpid_{id}" {tpd}/></defs>
-                <text {tc}  textLength="20%" lengthAdjust="spacingAndGlyphs">
+                <text {tc}  textLength="{tl_pc_t}" lengthAdjust="spacingAndGlyphs">
                 <textPath {tpc} href="#tpid_{id}" startOffset="50%">{t}</textPath></text>
               </g>"""
     if title is not None:
@@ -179,7 +182,7 @@ def svg_arc_segment(prefix, arc_seg_d, id=None,title=None, s_class=None, t_class
 
 
 #    return base.format(d=svg_arc_segment_path_data(**arc_seg_d), style=styling, title=title, id=id, c=style_class)
-    return base.format(d=svg_arc_segment_path_data(**arc_seg_d), tpd=svg_arc_segment_text_path_data(**arc_seg_d), title=title_content, t=title, id=id, text_path_id=text_path_id, c=style_class, tc=text_class, tpc=text_path_class)
+    return base.format(d=svg_arc_segment_path_data(**arc_seg_d), tpd=svg_arc_segment_text_path_data(**arc_seg_d), title=title_content, t=title, id=id, text_path_id=text_path_id, c=style_class, tc=text_class, tpc=text_path_class, tl_pc_t=tl_pc_t)
 
 
 
@@ -197,22 +200,22 @@ def clock_minute_arcs():
         tick = i*(tau/60)
         if i < 30:
             if eo(i):
-                arc=svg_arc_segment("min", arc_seg_d={"cx":10,"cy":10,"r":9,"w":1,"alpha":tick+(tau/120),"theta":tau/60}, id=str(i+1), title=str(i+1), s_class="green", t_class="text_minute", tp_class="text_path_minute")
+                arc=svg_arc_segment("min", arc_seg_d={"cx":10,"cy":10,"r":9,"w":1,"alpha":tick+(tau/120),"theta":tau/60}, id=str(i+1), title=str(i+1), s_class="green", t_class="text_minute", tp_class="text_path_minute", tl_pc=2)
             else:
-                arc=svg_arc_segment("min", arc_seg_d={"cx":10,"cy":10,"r":9,"w":1,"alpha":tick+(tau/120),"theta":tau/60}, id=str(i+1), title=str(i+1), s_class="green2", t_class="text_minute")
+                arc=svg_arc_segment("min", arc_seg_d={"cx":10,"cy":10,"r":9,"w":1,"alpha":tick+(tau/120),"theta":tau/60}, id=str(i+1), title=str(i+1), s_class="green2", t_class="text_minute", tl_pc=2)
             if i+1 in (60, 15, 30, 45):
-                arc=svg_arc_segment("min", arc_seg_d={"cx":10,"cy":10,"r":9,"w":1.3,"alpha":tick+(tau/120),"theta":tau/60}, id=str(i+1),title=str(i+1), s_class="green3", t_class="text_minute", tp_class="text_path_minute")
+                arc=svg_arc_segment("min", arc_seg_d={"cx":10,"cy":10,"r":9,"w":1.3,"alpha":tick+(tau/120),"theta":tau/60}, id=str(i+1),title=str(i+1), s_class="green3", t_class="text_minute", tp_class="text_path_minute", tl_pc=2)
             elif i+1 in (5,10,20,25,35,40,50,55):
-                arc=svg_arc_segment("min", arc_seg_d={"cx":10,"cy":10,"r":9,"w":1.3,"alpha":tick+(tau/120),"theta":tau/60}, id=str(i+1),title=str(i+1), s_class="green3", t_class="text_minute", tp_class="text_path_minute")
+                arc=svg_arc_segment("min", arc_seg_d={"cx":10,"cy":10,"r":9,"w":1.3,"alpha":tick+(tau/120),"theta":tau/60}, id=str(i+1),title=str(i+1), s_class="green3", t_class="text_minute", tp_class="text_path_minute", tl_pc=2)
         else:
             if eo(i):
-                arc=svg_arc_segment("min", arc_seg_d={"cx":10,"cy":10,"r":9,"w":1,"alpha":tick+(tau/120),"theta":tau/60}, id=str(i+1),title=str((60-(i+1))), s_class="pink", t_class="text_minute", tp_class="text_path_minute")
+                arc=svg_arc_segment("min", arc_seg_d={"cx":10,"cy":10,"r":9,"w":1,"alpha":tick+(tau/120),"theta":tau/60}, id=str(i+1),title=str((60-(i+1))), s_class="pink", t_class="text_minute", tp_class="text_path_minute", tl_pc=2)
             else:
-                arc=svg_arc_segment("min", arc_seg_d={"cx":10,"cy":10,"r":9,"w":1,"alpha":tick+(tau/120),"theta":tau/60}, id=str(i+1),title=str((60-(i+1))), s_class="pink2", t_class="text_minute")
+                arc=svg_arc_segment("min", arc_seg_d={"cx":10,"cy":10,"r":9,"w":1,"alpha":tick+(tau/120),"theta":tau/60}, id=str(i+1),title=str((60-(i+1))), s_class="pink2", t_class="text_minute", tl_pc=2)
             if i+1 in (60, 15, 30, 45):
-                arc=svg_arc_segment("min", arc_seg_d={"cx":10,"cy":10,"r":9,"w":1.3,"alpha":tick+(tau/120),"theta":tau/60}, id=str(i+1),title=str((60-(i+1))), s_class="pink3", t_class="text_minute", tp_class="text_path_minute")
+                arc=svg_arc_segment("min", arc_seg_d={"cx":10,"cy":10,"r":9,"w":1.3,"alpha":tick+(tau/120),"theta":tau/60}, id=str(i+1),title=str((60-(i+1))), s_class="pink3", t_class="text_minute", tp_class="text_path_minute", tl_pc=2)
             elif i+1 in (5,10,20,25,35,40,50,55):
-                arc=svg_arc_segment("min", arc_seg_d={"cx":10,"cy":10,"r":9,"w":1.3,"alpha":tick+(tau/120),"theta":tau/60},id=str(i+1), title=str((60-(i+1))), s_class="pink3", t_class="text_minute", tp_class="text_path_minute")
+                arc=svg_arc_segment("min", arc_seg_d={"cx":10,"cy":10,"r":9,"w":1.3,"alpha":tick+(tau/120),"theta":tau/60},id=str(i+1), title=str((60-(i+1))), s_class="pink3", t_class="text_minute", tp_class="text_path_minute", tl_pc=2)
 
 
         minute_arcs.append(arc)
@@ -239,9 +242,9 @@ def clock_hour_arcs():
     for i in range(0,12):
         tick = i*(tau/12)
         if eo(i):
-            hour_arcs.append(svg_arc_segment("hour", arc_seg_d={"cx":10,"cy":10,"r":5,"w":3.5,"alpha":tick+(tau/24),"theta":tau/12}, id=str(i+1),title=str(i+1), s_class="blue1", t_class="text_hour"))
+            hour_arcs.append(svg_arc_segment("hour", arc_seg_d={"cx":10,"cy":10,"r":5,"w":3.5,"alpha":tick+(tau/24),"theta":tau/12}, id=str(i+1),title=str(i+1), s_class="blue1", t_class="text_hour",tl_pc=5))
         else:
-            hour_arcs.append(svg_arc_segment("hour", arc_seg_d={"cx":10,"cy":10,"r":5,"w":3.5,"alpha":tick+(tau/24),"theta":tau/12}, id=str(i+1),title=str(i+1), s_class="blue2", t_class="text_hour", tp_class="text_path_hour"))
+            hour_arcs.append(svg_arc_segment("hour", arc_seg_d={"cx":10,"cy":10,"r":5,"w":3.5,"alpha":tick+(tau/24),"theta":tau/12}, id=str(i+1),title=str(i+1), s_class="blue2", t_class="text_hour", tp_class="text_path_hour",tl_pc=5))
 
     return "\n".join(hour_arcs)
 
