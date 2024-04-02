@@ -10,10 +10,16 @@ Run the flask server using the ```go_tt.sh``` command, you may need to edit this
 
 An empty URL suffix will signal the server to display the current time (refresh the page to update)
 
+Connecting to the flask server's address (default is `http://localhost:5000`) will provide an image of the current local time in both analogue and digital clock faces. 
+
+![Clocks displaying the time 09:22](demo_9_22.png)
+
+To display times other than the local time, use the api below
+
 ```
 /show/<time>/
 ```
 
-where ```<time>``` is HH:MM
+where ```<time>``` is provided strictly in `HH:MM` format.
 
-Will display the time specified
+And the clock-faces displaying the time specified will be returned.
